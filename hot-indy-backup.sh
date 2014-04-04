@@ -26,7 +26,7 @@ UTILDIR='/home/mysql/util'
 DUMPOPTS="--net_buffer_length=16M --max_allowed_packet=200M --quick --opt  --extended-insert=FALSE "
 
 # list of Databases to exclude, by default all DBs are backed up
-EXCLUDES="information_schema test gme_evals ume_evals"
+EXCLUDES="information_schema test"
 
 # note gme_evals and ume_evals are huge and need to be backed up separately.
 
