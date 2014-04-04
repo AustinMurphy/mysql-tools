@@ -37,39 +37,39 @@ EXCLUDES="information_schema test"
 # Tag logic:
 # 
 #  - If a tag is passed from the commandline, we use that tag
-#  - If we have 0 cronmonthlies from the last 31 days, then we use the tag cronmonthly
-#  - If it is the first of the month, then we use the tag cronmonthly
-#  - If we have 0 cronweeklies from the last 7 days, then we use the tag cronweekly
-#  - If it is saturday, then we use the tag cronweekly
-#  - Otherwise, we use the tag crondaily
+#  - If we have 0 monthlies from the last 31 days, then we use the tag monthly
+#  - If it is the first of the month, then we use the tag monthly
+#  - If we have 0 weeklies from the last 7 days, then we use the tag weekly
+#  - If it is saturday, then we use the tag weekly
+#  - Otherwise, we use the tag daily
 
 # Day of Week,  0 - Sun , 1-Mon, ..., 6-Sat
 DOW=$(date +%w)
 #  Day of Month
 DOM=$(date +%d)
 # Number of daily|monthly backups in the past 7|31 days  
-NWP7=$( find ${BACKUPDIRBASE}/ -regex '.*cronweekly.*' -mtime -7 | wc -l)
-NMP31=$( find ${BACKUPDIRBASE}/ -regex '.*cronmonthly.*' -mtime -31 | wc -l)
+NWP7=$( find ${BACKUPDIRBASE}/ -regex '.*weekly.*' -mtime -7 | wc -l)
+NMP31=$( find ${BACKUPDIRBASE}/ -regex '.*monthly.*' -mtime -31 | wc -l)
 
-TAG="crondaily" 
+TAG="daily" 
 
 if [ $DOW -eq 6 ] 
 then
-    TAG="cronweekly"
+    TAG="weekly"
 fi
 if [ $NWP7 -eq 0 ] 
 then
-    TAG="cronweekly" 
+    TAG="weekly" 
 fi
 
 if [ $DOM -eq 1 ] 
 then
-    TAG="cronmonthly" 
+    TAG="monthly" 
 fi
 
 if [ $NMP31 -eq 0 ]
 then
-    TAG="cronmonthly" 
+    TAG="monthly" 
 fi
 
 [[ X$1 != "X" ]] && TAG=$1
