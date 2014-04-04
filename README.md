@@ -26,9 +26,9 @@ General pre-reqs:
  - working mysql
  - ~/.my.cnf with mysql root creds  (looks like this:)
 
-[client]
-user     = root
-password = 'XXXXXXXXXXXXXXXXXX'
+    [client]
+    user     = root
+    password = 'XXXXXXXXXXXXXXXXXX'
 
 
 
