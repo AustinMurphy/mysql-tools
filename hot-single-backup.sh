@@ -19,11 +19,17 @@ fi
 GIVENDB=$1
 
 
-BACKUPDIRBASE='/mnt/filer1/somapps_backup'
-DATE=`date +%Y%m%d-%H%M`
+
+
+#BACKUPDIRBASE='/mnt/filer1/somapps_backup'
+#DATE=`date +%Y%m%d-%H%M`
 
 UTILDIR='/home/mysql/util'
-BKUPCNF='/home/mysql/util/backup.cnf'
+BKUPCNF="$UTILDIR/backup.cnf"
+
+# Source common options & routines
+. $UTILDIR/bk-common.sh
+
 
 
 # Create today's backup destination directory
@@ -158,6 +164,5 @@ echo ""
 #
 #  END
 #
-
 
 

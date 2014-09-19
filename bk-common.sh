@@ -94,18 +94,18 @@ count_backups() {
     #  Determine how many backups exist of each type
     # 
 
-    SINGLES=$(find ${BACKUPDIRBASE}/ -regex '.*single.*' | wc -l)
-    DAILYS=$(find ${BACKUPDIRBASE}/ -regex '.*crondaily.*' | wc -l)
-    WEEKLYS=$(find ${BACKUPDIRBASE}/ -regex '.*cronweekly.*' | wc -l)
-    MONTHLYS=$(find ${BACKUPDIRBASE}/ -regex '.*cronmonthly.*' | wc -l)
-    MANUALS=$(find ${BACKUPDIRBASE}/ -regex '.*manual.*' | wc -l)
+    SINGLES=$(find ${BACKUPDIRBASE}/ -regex '.*single.*sql\.gz' | wc -l)
+    DAILYS=$(find ${BACKUPDIRBASE}/ -regex '.*daily.*sql\.gz' | wc -l)
+    WEEKLYS=$(find ${BACKUPDIRBASE}/ -regex '.*weekly.*sql\.gz' | wc -l)
+    MONTHLYS=$(find ${BACKUPDIRBASE}/ -regex '.*monthly.*sql\.gz' | wc -l)
+    MANUALS=$(find ${BACKUPDIRBASE}/ -regex '.*manual.*sql\.gz' | wc -l)
 
-    SINGLESOLD=$(find ${BACKUPDIRBASE}/ -regex '.*single.*' -mtime +${SINGLESMAXAGE} | wc -l)
-    DAILYSOLD=$(find ${BACKUPDIRBASE}/ -regex '.*crondaily.*' -mtime +${DAILYMAXAGE} | wc -l)
-    WEEKLYSOLD=$(find ${BACKUPDIRBASE}/ -regex '.*cronweekly.*' -mtime +${WEEKLYMAXAGE} | wc -l)
-    MONTHLYSOLD=$(find ${BACKUPDIRBASE}/ -regex '.*cronmonthly.*' -mtime +${MONTHLYMAXAGE} | wc -l)
+    SINGLESOLD=$(find ${BACKUPDIRBASE}/ -regex '.*single.*sql\.gz' -mtime +${SINGLESMAXAGE} | wc -l)
+    DAILYSOLD=$(find ${BACKUPDIRBASE}/ -regex '.*daily.*sql\.gz' -mtime +${DAILYMAXAGE} | wc -l)
+    WEEKLYSOLD=$(find ${BACKUPDIRBASE}/ -regex '.*weekly.*sql\.gz' -mtime +${WEEKLYMAXAGE} | wc -l)
+    MONTHLYSOLD=$(find ${BACKUPDIRBASE}/ -regex '.*monthly.*sql\.gz' -mtime +${MONTHLYMAXAGE} | wc -l)
 
-    TOTAL=$(find ${BACKUPDIRBASE}/ -regex '.*backup.*' | wc -l)
+    TOTAL=$(find ${BACKUPDIRBASE}/ -regex '.*backup.*sql\.gz$' | wc -l)
 
 }
 
@@ -150,19 +150,19 @@ delete_old_backups() {
 
     echo "Deleting $MONTHLYSOLD Monthly backups more than $MONTHLYMAXAGE days old ... "
     sleep 2
-    find ${BACKUPDIRBASE}/ -regex '.*cronmonthly.*' -mtime +${MONTHLYMAXAGE} -exec rm {} \;
+    find ${BACKUPDIRBASE}/ -regex '.*monthly.*sql\.gz' -mtime +${MONTHLYMAXAGE} -exec rm {} \;
 
     echo "Deleting $WEEKLYSOLD Weekly backups more than $WEEKLYMAXAGE days old ... "
     sleep 2
-    find ${BACKUPDIRBASE}/ -regex '.*cronweekly.*' -mtime +${WEEKLYMAXAGE} -exec rm {} \;
+    find ${BACKUPDIRBASE}/ -regex '.*weekly.*sql\.gz' -mtime +${WEEKLYMAXAGE} -exec rm {} \;
 
     echo "Deleting $DAILYSOLD Daily backups more than $DAILYMAXAGE days old ... "
     sleep 2
-    find ${BACKUPDIRBASE}/ -regex '.*crondaily.*' -mtime +${DAILYMAXAGE} -exec rm {} \;
+    find ${BACKUPDIRBASE}/ -regex '.*daily.*sql\.gz' -mtime +${DAILYMAXAGE} -exec rm {} \;
 
     echo "Deleting $SINGLESOLD Single backups more than $SINGLESMAXAGE days old ... "
     sleep 2
-    find ${BACKUPDIRBASE}/ -regex '.*single.*' -mtime +${SINGLESMAXAGE} -exec rm {} \;
+    find ${BACKUPDIRBASE}/ -regex '.*single.*sql\.gz' -mtime +${SINGLESMAXAGE} -exec rm {} \;
 
 }
 
@@ -203,5 +203,6 @@ delete_empty_dirs() {
 
     hr
 }
+
 
 
