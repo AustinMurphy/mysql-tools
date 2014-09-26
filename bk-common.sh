@@ -3,7 +3,7 @@
 # it should be sourced into the real scripts to establish commonality
 #
 
-BACKUPDIRBASE=/some/where/with/space
+BACKUPDIRBASE=/data/backup/mysql
 
 
 # Applies to cleanup and aging scripts:
@@ -199,7 +199,7 @@ delete_empty_dirs() {
     echo "Deleting $NUMEMPTYDIRS empty directories ..."
     echo ""
     sleep 1
-    find ${BACKUPDIRBASE}/ -maxdepth 1 -type d -a -empty -exec rmdir {} \;
+    find ${BACKUPDIRBASE}/ -mindepth 1 -maxdepth 1 -type d -a -empty -exec rmdir {} \;
 
     hr
 }
